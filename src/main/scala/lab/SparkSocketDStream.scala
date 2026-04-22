@@ -1,24 +1,25 @@
-/** SparkSocketDStream.scala
-  */
+/**
+ * SparkSocketDStream.scala
+ */
 
 package example
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.streaming.StreamingContext
-
-import org.apache.spark.streaming.Seconds
 import org.apache.spark.storage.StorageLevel
+import org.apache.spark.streaming.Seconds
+import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.dstream.DStream
 
 object SparkSocketDStream {
 
-  val spark = SparkSession.builder
+  val spark = SparkSession
+    .builder()
     .appName("SparkSocketDStream")
     .master("local[*]")
-    .getOrCreate
+    .getOrCreate()
   val ssc = new StreamingContext(spark.sparkContext, Seconds(3))
 
-  def readFromSocket() {
+  def readFromSocket(): Unit = {
     val stream: DStream[String] =
       ssc.socketTextStream(
         "127.0.0.1",
@@ -27,13 +28,13 @@ object SparkSocketDStream {
       )
 
     val words: DStream[String] = stream.flatMap(line => line.split(" "))
-    words.print
+    words.print()
 
-    ssc.start
-    ssc.awaitTermination
+    ssc.start()
+    ssc.awaitTermination()
   }
 
-  def readFile(path: String) {
+  def readFile(path: String): Unit = {
     val stream: DStream[String] = ssc.textFileStream(path)
     stream.foreachRDD(rdd => {
       if (!rdd.isEmpty()) {
@@ -42,8 +43,8 @@ object SparkSocketDStream {
       }
     })
 
-    ssc.start
-    ssc.awaitTermination
+    ssc.start()
+    ssc.awaitTermination()
   }
 
   def main(args: Array[String]): Unit = {

@@ -4,9 +4,9 @@
 
 package example
 
+import org.apache.log4j.Level
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
-import org.apache.log4j.Level
 import org.apache.spark.rdd.RDD
 
 case class Country(id: String, name: String)
@@ -34,7 +34,7 @@ object SparkRDDTest {
     /**
      * groupByKey
      */
-    val groupByKey: RDD[(Int, Iterable[Int])] = numbersPair.groupByKey
+    val groupByKey: RDD[(Int, Iterable[Int])] = numbersPair.groupByKey()
     // groupByKey.collect.foreach(println)
 
     /**
@@ -49,7 +49,7 @@ object SparkRDDTest {
       .reduceByKey((v1, v2) => (v1._1 + v2._1, v1._2 + v2._2))
     // mapValues.collect.foreach(println)
 
-    val keys = numbersPair.keys.distinct.count
+    val keys = numbersPair.keys.distinct().count()
     println(s"count: ${keys}")
 
   }

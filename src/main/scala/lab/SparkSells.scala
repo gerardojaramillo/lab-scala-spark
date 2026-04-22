@@ -1,5 +1,6 @@
-/** SparkSells.scala
-  */
+/**
+ * SparkSells.scala
+ */
 
 package example
 
@@ -12,9 +13,9 @@ import org.apache.spark.sql.types.DecimalType
 import org.apache.spark.sql.types.StructField
 import org.apache.spark.sql.types.StructType
 
-import scala.util.Try
-import scala.util.Success
 import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
 
 object SparkSells {
 
@@ -23,7 +24,7 @@ object SparkSells {
       .builder()
       .appName("SparkSells")
       .master("local[*]")
-      .getOrCreate
+      .getOrCreate()
   spark.sparkContext.setLogLevel("ERROR")
 
   val path: String = getClass.getResource("/sells.csv").getPath
@@ -68,7 +69,7 @@ object SparkSells {
         Failure(new IllegalArgumentException(s"Illegal argument ${productid}"))
       case Some(id) =>
         Success {
-          read filter (col("productid") === id)
+          read().filter(col("productid") === id)
         }
     }
   }

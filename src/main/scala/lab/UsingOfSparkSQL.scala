@@ -6,15 +6,15 @@
 
 package example
 
+import org.apache.log4j.Level
+import org.apache.log4j.Logger
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.types.StringType
+import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.types.TimestampType
 
-import org.apache.log4j.{Level, Logger}
-
-object SparkSQL {
+object UsingOfSparkSQL {
 
   Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
 

@@ -1,5 +1,6 @@
-/** SparkGenderStream.scala
-  */
+/**
+ * SparkGenderStream.scala
+ */
 
 package example
 
@@ -14,10 +15,11 @@ object SparkGenderStream {
 
   def main(args: Array[String]): Unit = {
 
-    val spark = SparkSession.builder
+    val spark = SparkSession
+      .builder()
       .appName("SparkGenderStream")
       .master("local[*]")
-      .getOrCreate
+      .getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
 
     val streaming = spark.readStream
@@ -25,7 +27,7 @@ object SparkGenderStream {
       .option("kafka.bootstrap.servers", "localhost:9092")
       .option("subscribe", "stream-person")
       .option("includeHeaders", "true")
-      .load
+      .load()
 
     val query = streaming
       .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
@@ -34,8 +36,8 @@ object SparkGenderStream {
       .outputMode(OutputMode.Append)
       .format("Console")
       .option("checkpointLocation", "/Users/millodev/Documents")
-      .start
-    query.awaitTermination
+      .start()
+    query.awaitTermination()
 
   }
 

@@ -1,12 +1,13 @@
 package example
 
-import org.apache.spark.sql.SparkSession
 import org.apache.log4j.Level
-import org.apache.spark.sql.Row
-import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
-import scala.annotation.meta.param
+import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
+import org.apache.spark.sql.Row
+import org.apache.spark.sql.SparkSession
+
+import scala.annotation.meta.param
 
 object SparkRDD {
 
@@ -69,7 +70,7 @@ object SparkRDD {
 
     println("mapValues:")
     val mv = countriesPairRdd.mapValues(_.population)
-    mv.collect.foreach(println)
+    mv.collect().foreach(println)
 
     /** Regular Scala Collections */
     val cities = List(
@@ -83,7 +84,7 @@ object SparkRDD {
 
     val result = cities.groupBy(_._1)
     result.foreach(println)
-    println
+    println()
 
     val ages = List(2, 52, 44, 23, 17, 14, 12, 82, 51, 64)
     val grouped = ages.groupBy { age =>
@@ -92,7 +93,7 @@ object SparkRDD {
       else "senior"
     }
     grouped.foreach(println)
-    println
+    println()
 
     /** #? example */
     case class Event(organizer: String, budget: Int)
@@ -105,21 +106,21 @@ object SparkRDD {
     )
 
     val eventsRdd = sc.parallelize(events).map { e => (e.organizer, e.budget) }
-    val groupedRdd = eventsRdd.groupByKey
-    groupedRdd.collect.foreach(println)
-    println
+    val groupedRdd = eventsRdd.groupByKey()
+    groupedRdd.collect().foreach(println)
+    println()
 
     /** #? example more efficient - only operated on the values */
     val reducedByKey: RDD[(String, Int)] =
       eventsRdd.reduceByKey((a: Int, b: Int) => a + b)
-    reducedByKey.collect.foreach(println)
-    println
+    reducedByKey.collect().foreach(println)
+    println()
 
     /** #? mapValues - transformation */
     println("mapValue:")
     val mapValues = eventsRdd.mapValues { r => r + 1 }
-    mapValues.collect.foreach(println)
-    println
+    mapValues.collect().foreach(println)
+    println()
 
     /** #? countByKey - action */
 

@@ -1,5 +1,6 @@
-/** SparkDF.scala
-  */
+/**
+ * SparkDF.scala
+ */
 
 package example
 
@@ -25,7 +26,11 @@ object SparkGenderDF {
 
   def main(args: Array[String]): Unit = {
     val spark =
-      SparkSession.builder().appName("SparkDF").master("local[*]").getOrCreate
+      SparkSession
+        .builder()
+        .appName("SparkDF")
+        .master("local[*]")
+        .getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
     val df = spark.read
       .format("csv")
@@ -37,8 +42,8 @@ object SparkGenderDF {
       .select(col("gender"))
       .groupBy(col(("gender")))
       .agg(count("*").alias("counter"))
-    groupByGender.show
-    spark.close
+    groupByGender.show()
+    spark.close()
   }
 
 }

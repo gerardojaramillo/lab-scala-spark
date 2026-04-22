@@ -16,15 +16,15 @@ object SparkFakerData {
     val dateFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
     val locales = Seq(
-      new Locale("en"),
-      new Locale("es"),
-      new Locale("fr"),
-      new Locale("de"),
-      new Locale("ja"),
-      new Locale("zh"),
-      new Locale("ar"),
-      new Locale("ru"),
-      new Locale("pt")
+      Locale.of("en"),
+      Locale.of("es"),
+      Locale.of("fr"),
+      Locale.of("de"),
+      Locale.of("ja"),
+      Locale.of("zh"),
+      Locale.of("ar"),
+      Locale.of("ru"),
+      Locale.of("pt")
     )
     val fakers = locales.map(new Faker(_))
 

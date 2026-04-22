@@ -1,5 +1,6 @@
-/** SparkMonthly.scala
-  */
+/**
+ * SparkMonthly.scala
+ */
 
 package example
 
@@ -18,7 +19,11 @@ import java.time.format.DateTimeFormatter
 object SparkMonthly {
 
   val spark =
-    SparkSession.builder.appName("SparkMonthly").master("local[*]").getOrCreate
+    SparkSession
+      .builder()
+      .appName("SparkMonthly")
+      .master("local[*]")
+      .getOrCreate()
   spark.sparkContext.setLogLevel("ERROR")
 
   val path: String = getClass.getResource("/sells.csv").getPath
