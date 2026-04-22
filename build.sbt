@@ -1,13 +1,17 @@
-import Dependencies._
+import Dependencies.*
 
-ThisBuild / scalaVersion := "2.13.12"
-
+ThisBuild / scalaVersion := "2.13.16"
+// ThisBuild / scalaVersion := "2.13.12"
 /** ThisBuild / scalaVersion := "2.12.13" */
 /** ThisBuild / scalaVersion := "2.12.17" */
 ThisBuild / version := "0.1.0-SNAPSHOT"
-ThisBuild / organization := "com.example"
-ThisBuild / organizationName := "example"
+ThisBuild / organization := "com.lab"
+ThisBuild / organizationName := "lab"
 scalacOptions ++= Seq("-language:implicitConversions", "-deprecation")
+
+// val sparkVer = "3.5.1"
+val sparkVer = "4.0.1"
+val doobieVer = "1.0.0-RC4"
 
 lazy val root = (project in file("."))
   .settings(
@@ -15,18 +19,23 @@ lazy val root = (project in file("."))
     /** assembly / mainClass := Some("example.SparkDeploy"), */
     name := "practicing-scala-spark",
     libraryDependencies += munit % Test,
-    libraryDependencies += "org.apache.spark" %% "spark-core" % "3.5.1",
-    libraryDependencies += "org.apache.spark" %% "spark-sql" % "3.5.1",
-    libraryDependencies += "org.apache.spark" %% "spark-streaming" % "3.5.1",
-    libraryDependencies += "org.apache.spark" %% "spark-sql-kafka-0-10" % "3.5.1",
+    libraryDependencies += "org.apache.spark" %% "spark-core" % sparkVer,
+    libraryDependencies += "org.apache.spark" %% "spark-sql" % sparkVer,
+    libraryDependencies += "org.apache.spark" %% "spark-streaming" % sparkVer,
+    libraryDependencies += "org.apache.spark" %% "spark-sql-kafka-0-10" % sparkVer,
+    libraryDependencies += "com.github.javafaker" % "javafaker" % "1.0.2",
+    libraryDependencies += "org.tpolecat" %% "doobie-core" % doobieVer,
+    libraryDependencies += "org.tpolecat" %% "doobie-h2" % doobieVer,
+    libraryDependencies += "org.tpolecat" %% "doobie-hikari" % doobieVer,
+    libraryDependencies += "org.tpolecat" %% "doobie-postgres" % doobieVer
 
-    libraryDependencies += "com.github.javafaker" % "javafaker" % "1.0.2"
-
-    /**    libraryDependencies += "org.apache.spark" %% "spark-core" % "3.2.4" % "provided",
-      *    libraryDependencies += "org.apache.spark" %% "spark-sql" % "3.2.4" % "provided",
-      *    libraryDependencies += "org.apache.spark" %% "spark-streaming" % "3.2.4" % "provided",
-      *    libraryDependencies += "org.apache.spark" %% "spark-sql-kafka-0-10" % "3.2.4"
-      */
+    /**
+     * libraryDependencies += "org.apache.spark" %% "spark-core" % "3.2.4" %
+     * "provided", libraryDependencies += "org.apache.spark" %% "spark-sql" %
+     * "3.2.4" % "provided", libraryDependencies += "org.apache.spark" %%
+     * "spark-streaming" % "3.2.4" % "provided", libraryDependencies +=
+     * "org.apache.spark" %% "spark-sql-kafka-0-10" % "3.2.4"
+     */
 
   )
 javaOptions in console ++= Seq(

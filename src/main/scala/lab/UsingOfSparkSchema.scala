@@ -8,10 +8,10 @@ package example
 
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.types.StringType
+import org.apache.spark.sql.types.StructType
 
-object SparkSchema {
+object UsingOfSparkSchema {
 
   val path = getClass().getResource("/source.csv").getPath
 
