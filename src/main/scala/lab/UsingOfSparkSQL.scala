@@ -32,8 +32,9 @@ object UsingOfSparkSQL {
 
     val config: SparkConf =
       new SparkConf()
-        .setAppName("SparkSQL")
+        .setAppName("UsingOfSparkSQL")
         .setMaster("local[*]")
+
     val spark: SparkSession =
       SparkSession
         .builder()
@@ -47,6 +48,7 @@ object UsingOfSparkSQL {
       .option("header", "true")
       .schema(schema)
       .load(path)
+
     df.createOrReplaceTempView("all")
 
     val gender =
@@ -73,6 +75,7 @@ object UsingOfSparkSQL {
       """.stripMargin)
       .show()
 
+    spark.stop()
     spark.close()
 
   }

@@ -37,10 +37,13 @@ object SparkWatermark {
       new SparkConf()
         .setAppName("SparkWatermark")
         .setMaster("local[*]")
-    val spark = SparkSession.builder().config(config).getOrCreate()
-    spark.sparkContext.setLogLevel("ERROR")
+    val spark = SparkSession
+      .builder()
+      .config(config)
+      .getOrCreate()
 
     import org.apache.spark.sql.functions._
+
     val streamDF = spark.readStream
       .format("kafka")
       .options(consumerOptions)
